@@ -22,7 +22,7 @@ class ArtistListViewController: UITableViewController {
     }
 
     private func registeredCell() {
-        //tableView.rowHeight = 350
+        tableView.rowHeight = 350
         tableView.register(ArtistCell.self, forCellReuseIdentifier: cellID)
     }
     

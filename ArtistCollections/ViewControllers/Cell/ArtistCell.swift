@@ -9,14 +9,10 @@ import UIKit
 
 final class ArtistCell: UITableViewCell {
     
-    private lazy var contentStack: UIStackView = {
-        let stack = UIStackView()
-        stack.axis = .vertical
-        stack.distribution = .fill
-        stack.alignment = .center
-        stack.spacing = 8
-        stack.translatesAutoresizingMaskIntoConstraints = false
-        return stack
+    lazy var artistView: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     lazy var artistLabel: UILabel = {
@@ -38,6 +34,7 @@ final class ArtistCell: UITableViewCell {
     private lazy var picturesImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
+        imageView.isUserInteractionEnabled = true
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
@@ -54,20 +51,36 @@ final class ArtistCell: UITableViewCell {
     
     private func setupCell() {
         selectionStyle = .none
-        
-        contentView.addSubview(contentStack)
-        contentStack.addArrangedSubview(picturesImageView)
-        contentStack.addArrangedSubview(artistLabel)
-        contentStack.addArrangedSubview(bioLabel)
+        contentView.addSubview(artistView)
+        artistView.addSubview(picturesImageView)
+        artistView.addSubview(artistLabel)
+        artistView.addSubview(bioLabel)
         
         NSLayoutConstraint.activate([
-            contentStack.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 8),
-            contentStack.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            contentStack.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            contentStack.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-
+            
+            artistView.topAnchor.constraint(equalTo:  contentView.topAnchor, constant: 8),
+            artistView.leadingAnchor.constraint(equalTo:  contentView.leadingAnchor, constant: 8),
+            artistView.trailingAnchor.constraint(equalTo:  contentView.trailingAnchor, constant: -8),
+            artistView.bottomAnchor.constraint(equalTo:  contentView.bottomAnchor, constant: -8),
+            
+            picturesImageView.topAnchor.constraint(equalTo: artistView.topAnchor),
+            picturesImageView.leadingAnchor.constraint(equalTo: artistView.leadingAnchor),
+            picturesImageView.trailingAnchor.constraint(equalTo: artistView.trailingAnchor, constant: -250),
+            picturesImageView.bottomAnchor.constraint(equalTo: artistView.bottomAnchor),
             picturesImageView.widthAnchor.constraint(equalToConstant: 50),
             picturesImageView.heightAnchor.constraint(equalToConstant: 50),
+            
+            
+            artistLabel.topAnchor.constraint(equalTo: artistView.topAnchor),
+            artistLabel.leadingAnchor.constraint(equalTo: picturesImageView.trailingAnchor, constant: 8),
+            artistLabel.trailingAnchor.constraint(equalTo: artistView.trailingAnchor, constant: -8),
+            
+            bioLabel.leadingAnchor.constraint(equalTo: picturesImageView.trailingAnchor, constant: 8),
+            bioLabel.topAnchor.constraint(equalTo: artistLabel.bottomAnchor, constant: 8),
+            bioLabel.bottomAnchor.constraint(equalTo: artistView.bottomAnchor),
+            bioLabel.trailingAnchor.constraint(equalTo: artistView.trailingAnchor, constant: -8),
+            
+            
         ])
     }
 }
