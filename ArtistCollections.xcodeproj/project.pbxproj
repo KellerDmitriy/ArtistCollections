@@ -12,10 +12,12 @@
 		E1D5E71B2AFCF23100AF2A91 /* ArtistListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E71A2AFCF23100AF2A91 /* ArtistListViewController.swift */; };
 		E1D5E7202AFCF23200AF2A91 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E1D5E71F2AFCF23200AF2A91 /* Assets.xcassets */; };
 		E1D5E7232AFCF23200AF2A91 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E1D5E7212AFCF23200AF2A91 /* LaunchScreen.storyboard */; };
-		E1D5E72D2AFCF4C000AF2A91 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E72C2AFCF4C000AF2A91 /* DetailViewController.swift */; };
+		E1D5E72D2AFCF4C000AF2A91 /* WorksViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E72C2AFCF4C000AF2A91 /* WorksViewController.swift */; };
 		E1D5E7302AFCF58100AF2A91 /* ArtistModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E72F2AFCF58100AF2A91 /* ArtistModel.swift */; };
 		E1D5E7372AFCF8E200AF2A91 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E7362AFCF8E200AF2A91 /* NetworkManager.swift */; };
-		E1D5E7392AFD111B00AF2A91 /* ArtistCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E7382AFD111B00AF2A91 /* ArtistCell.swift */; };
+		E1D5E7392AFD111B00AF2A91 /* ArtistTableCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E7382AFD111B00AF2A91 /* ArtistTableCell.swift */; };
+		E1D5E73C2AFECAAA00AF2A91 /* WorkTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E73B2AFECAAA00AF2A91 /* WorkTableViewCell.swift */; };
+		E1D5E73E2AFED72F00AF2A91 /* DetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = E1D5E73D2AFED72F00AF2A91 /* DetailViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,10 +28,12 @@
 		E1D5E71F2AFCF23200AF2A91 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E1D5E7222AFCF23200AF2A91 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E1D5E7242AFCF23200AF2A91 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		E1D5E72C2AFCF4C000AF2A91 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
+		E1D5E72C2AFCF4C000AF2A91 /* WorksViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorksViewController.swift; sourceTree = "<group>"; };
 		E1D5E72F2AFCF58100AF2A91 /* ArtistModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistModel.swift; sourceTree = "<group>"; };
 		E1D5E7362AFCF8E200AF2A91 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
-		E1D5E7382AFD111B00AF2A91 /* ArtistCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistCell.swift; sourceTree = "<group>"; };
+		E1D5E7382AFD111B00AF2A91 /* ArtistTableCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ArtistTableCell.swift; sourceTree = "<group>"; };
+		E1D5E73B2AFECAAA00AF2A91 /* WorkTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WorkTableViewCell.swift; sourceTree = "<group>"; };
+		E1D5E73D2AFED72F00AF2A91 /* DetailViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -87,7 +91,8 @@
 			children = (
 				E1D5E73A2AFD112100AF2A91 /* Cell */,
 				E1D5E71A2AFCF23100AF2A91 /* ArtistListViewController.swift */,
-				E1D5E72C2AFCF4C000AF2A91 /* DetailViewController.swift */,
+				E1D5E72C2AFCF4C000AF2A91 /* WorksViewController.swift */,
+				E1D5E73D2AFED72F00AF2A91 /* DetailViewController.swift */,
 			);
 			path = ViewControllers;
 			sourceTree = "<group>";
@@ -111,7 +116,8 @@
 		E1D5E73A2AFD112100AF2A91 /* Cell */ = {
 			isa = PBXGroup;
 			children = (
-				E1D5E7382AFD111B00AF2A91 /* ArtistCell.swift */,
+				E1D5E7382AFD111B00AF2A91 /* ArtistTableCell.swift */,
+				E1D5E73B2AFECAAA00AF2A91 /* WorkTableViewCell.swift */,
 			);
 			path = Cell;
 			sourceTree = "<group>";
@@ -186,13 +192,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1D5E73C2AFECAAA00AF2A91 /* WorkTableViewCell.swift in Sources */,
 				E1D5E7372AFCF8E200AF2A91 /* NetworkManager.swift in Sources */,
 				E1D5E71B2AFCF23100AF2A91 /* ArtistListViewController.swift in Sources */,
-				E1D5E7392AFD111B00AF2A91 /* ArtistCell.swift in Sources */,
+				E1D5E7392AFD111B00AF2A91 /* ArtistTableCell.swift in Sources */,
 				E1D5E7172AFCF23100AF2A91 /* AppDelegate.swift in Sources */,
 				E1D5E7302AFCF58100AF2A91 /* ArtistModel.swift in Sources */,
+				E1D5E73E2AFED72F00AF2A91 /* DetailViewController.swift in Sources */,
 				E1D5E7192AFCF23100AF2A91 /* SceneDelegate.swift in Sources */,
-				E1D5E72D2AFCF4C000AF2A91 /* DetailViewController.swift in Sources */,
+				E1D5E72D2AFCF4C000AF2A91 /* WorksViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

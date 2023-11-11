@@ -2,7 +2,7 @@
 //  DetailViewController.swift
 //  ArtistCollections
 //
-//  Created by Келлер Дмитрий on 09.11.2023.
+//  Created by Келлер Дмитрий on 11.11.2023.
 //
 
 import UIKit
@@ -10,7 +10,22 @@ import UIKit
 final class DetailViewController: UIViewController {
     var selectedImage: String?
     
-    private lazy var picturesImageView: UIImageView = {
+    lazy var infoLabel: UILabel = {
+        let label = UILabel()
+        label.numberOfLines = 0
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    lazy var picturesImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -41,8 +56,10 @@ final class DetailViewController: UIViewController {
     }
     
     private func setupView() {
-        view.backgroundColor = .darkGray
         view.addSubview(picturesImageView)
+        view.addSubview(titleLabel)
+        view.addSubview(infoLabel)
+ 
     }
     
     private func setConstraints() {

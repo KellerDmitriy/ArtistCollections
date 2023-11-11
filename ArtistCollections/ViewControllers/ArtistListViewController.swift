@@ -20,10 +20,10 @@ class ArtistListViewController: UITableViewController {
         registeredCell()
         setupNavigationBar()
     }
-
+    
     private func registeredCell() {
-        tableView.rowHeight = 350
-        tableView.register(ArtistCell.self, forCellReuseIdentifier: cellID)
+        //tableView.rowHeight = 350
+        tableView.register(ArtistTableCell.self, forCellReuseIdentifier: cellID)
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -34,21 +34,20 @@ class ArtistListViewController: UITableViewController {
         //
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
-        guard let artistCell = cell as? ArtistCell else { return UITableViewCell() }
+        guard let artistCell = cell as? ArtistTableCell else { return UITableViewCell() }
         let artist = artistsList[indexPath.row]
         artistCell.textLabel?.text = artist.name
         artistCell.bioLabel.text = artist.bio
-        artistCell.imageView?.image = UIImage(named: artist.image ?? "Andy4")
+        artistCell.picturesImageView.image = UIImage(named: artist.image ?? "Andy4")
         return artistCell
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let detailViewController = DetailViewController()
+        let worksViewController = WorksViewController()
         let artist = artistsList[indexPath.row]
-        let firstImage = artist.work?.first
-        detailViewController.selectedImage = firstImage?.image ?? ""
-        
-        navigationController?.pushViewController(detailViewController, animated: true)
+        let works = artist.works
+        worksViewController.selectedImage = works
+        navigationController?.pushViewController(worksViewController, animated: true)
     }
     
     func setupNavigationBar() {
@@ -60,7 +59,7 @@ class ArtistListViewController: UITableViewController {
 
 extension ArtistListViewController {
     func fetchData() {
-        networkManager.loadArtistsFromJSON { [weak self] result in
+        networkManager.fetchArtistsFromJSON { [weak self] result in
             switch result {
             case .success(let artist):
                 self?.artistsList = artist.artists

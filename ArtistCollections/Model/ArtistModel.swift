@@ -15,10 +15,10 @@ struct ArtistModel: Codable {
     let name: String
     let bio: String?
     let image: String?
-    let work: [Works]?
+    let works: [Work]?
 }
 
-struct Works: Codable {
+struct Work: Codable {
     let title: String
     let image: String?
     let info: String?
