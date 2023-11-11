@@ -8,14 +8,22 @@
 import Foundation
 
 struct ArtistResult: Codable {
-    let artists: [ArtistModel]
+    var artists: [ArtistModel]
 }
 
-struct ArtistModel: Codable {
+struct ArtistModel: Codable, Comparable {
     let name: String
     let bio: String?
     let image: String?
     let works: [Work]?
+    
+    static func < (lhs: ArtistModel, rhs: ArtistModel) -> Bool {
+        return lhs.name < rhs.name
+    }
+    
+    static func == (lhs: ArtistModel, rhs: ArtistModel) -> Bool {
+        return lhs.name == rhs.name
+    }
 }
 
 struct Work: Codable {

@@ -9,12 +9,16 @@ import UIKit
 
 final class WorksViewController: UITableViewController {
     var selectedImage: [Work]?
+    var selectedArtist: String = ""
     
     private let cellID = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registeredCell()
+      
+        
+        title = "by \(selectedArtist)"
     }
     
     private func registeredCell() {

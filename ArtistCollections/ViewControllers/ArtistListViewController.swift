@@ -49,7 +49,8 @@ class ArtistListViewController: UITableViewController {
         }
     }
     private func registeredCell() {
-        tableView.rowHeight = 350
+ 
+        tableView.rowHeight = 320
         tableView.register(ArtistTableCell.self, forCellReuseIdentifier: cellID)
     }
     
@@ -60,7 +61,6 @@ class ArtistListViewController: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        //
         let cell = tableView.dequeueReusableCell(withIdentifier: cellID, for: indexPath)
         
         guard let artistCell = cell as? ArtistTableCell else { return UITableViewCell() }
@@ -68,7 +68,7 @@ class ArtistListViewController: UITableViewController {
         ? filteredArtist[indexPath.row]
         : artistsResult?.artists[indexPath.row]
         
-        artistCell.textLabel?.text = artist?.name
+        artistCell.artistLabel.text = artist?.name
         artistCell.bioLabel.text = artist?.bio
         artistCell.picturesImageView.image = UIImage(named: artist?.image ?? "" )
         return artistCell
@@ -78,6 +78,7 @@ class ArtistListViewController: UITableViewController {
         let worksViewController = WorksViewController()
         let artist = artistsResult?.artists[indexPath.row]
         let works = artist?.works
+        worksViewController.selectedArtist = artist?.name ?? ""
         worksViewController.selectedImage = works
         navigationController?.pushViewController(worksViewController, animated: true)
     }
@@ -95,7 +96,9 @@ extension ArtistListViewController {
             switch result {
             case .success(let artist):
                 self?.artistsResult = artist
+                self?.artistsResult?.artists.sort()
                 DispatchQueue.main.async {
+                    
                     self?.tableView.reloadData()
                 }
             case .failure(let error):
@@ -113,12 +116,8 @@ extension ArtistListViewController: UISearchResultsUpdating {
     
     private func filterContentForSearchText(_ searchText: String) {
         filteredArtist = artistsResult?.artists.filter { artist in
-               let artistNameMatch = artist.name.lowercased().contains(searchText.lowercased())
-            let workTitleMatch = artist.works?.contains { work in
-                   work.title.lowercased().contains(searchText.lowercased())
-               } 
-            return artistNameMatch || (workTitleMatch != nil)
-           } ?? []
+            artist.name.lowercased().contains(searchText.lowercased())
+        } ?? []
            
            tableView.reloadData()
     }
