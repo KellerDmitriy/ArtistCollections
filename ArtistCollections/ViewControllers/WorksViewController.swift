@@ -17,18 +17,8 @@ final class WorksViewController: UITableViewController {
         registeredCell()
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnTap = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnTap = false
-    }
-    
     private func registeredCell() {
-        tableView.rowHeight = 300
+        tableView.rowHeight = 150
         tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: cellID)
     }
 }
@@ -53,9 +43,9 @@ extension WorksViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
         let works = selectedImage?[indexPath.row]
-        detailViewController.titleLabel.text = works?.title
+        detailViewController.selectedTitle = works?.title
         detailViewController.infoLabel.text = works?.info
-        detailViewController.selectedImage = works?.image
+        detailViewController.picturesImageView.image = UIImage(named: works?.image ?? "")
         navigationController?.pushViewController(detailViewController, animated: true)
     }
 }

@@ -8,18 +8,11 @@
 import UIKit
 
 final class DetailViewController: UIViewController {
-    var selectedImage: String?
+    var selectedTitle: String?
     
     lazy var infoLabel: UILabel = {
         let label = UILabel()
         label.numberOfLines = 0
-        label.textColor = .darkGray
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
-    lazy var titleLabel: UILabel = {
-        let label = UILabel()
         label.textColor = .darkGray
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -31,18 +24,14 @@ final class DetailViewController: UIViewController {
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
-
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
         setConstraints()
         
-        if let imageToLoad = selectedImage {
-            picturesImageView.image = UIImage(named: imageToLoad)
-        }
-        
         navigationItem.largeTitleDisplayMode = .never
-        title = selectedImage
+        title = selectedTitle
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -56,24 +45,26 @@ final class DetailViewController: UIViewController {
     }
     
     private func setupView() {
+        view.backgroundColor = .white
         view.addSubview(picturesImageView)
-        view.addSubview(titleLabel)
         view.addSubview(infoLabel)
- 
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
-            picturesImageView.topAnchor.constraint(equalTo: view.topAnchor),
-            picturesImageView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
-            picturesImageView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
-            picturesImageView.bottomAnchor.constraint(equalTo: view.bottomAnchor)
+            
+            picturesImageView.topAnchor.constraint(equalTo: view.topAnchor,constant: 20),
+            picturesImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            
+            picturesImageView.widthAnchor.constraint(equalToConstant: 300),
+            picturesImageView.heightAnchor.constraint(equalToConstant: 300),
+            
+            infoLabel.topAnchor.constraint(equalTo: picturesImageView.bottomAnchor, constant: 4),
+            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
+            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
+            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
         ])
         
     }
     
-
-    // MARK: - Navigation
-
-
 }

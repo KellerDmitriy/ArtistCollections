@@ -19,8 +19,20 @@ final class WorkTableViewCell: UITableViewCell {
     lazy var picturesImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.contentMode = .scaleToFill
+        imageView.isUserInteractionEnabled = true
+        imageView.clipsToBounds = true
+        imageView.layer.cornerRadius = 8
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
+    }()
+    
+    lazy var view: UIView = {
+        let view = UIView()
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.backgroundColor = .black.withAlphaComponent(0.65)
+        view.layer.cornerRadius = 8
+        
+        return view
     }()
     
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
@@ -32,8 +44,16 @@ final class WorkTableViewCell: UITableViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     private func setupCell() {
+        selectionStyle = .none
         contentView.addSubview(picturesImageView)
+        contentView.addSubview(view)
         contentView.addSubview(titleLabel)
+        
+        let safeArea = contentView.safeAreaLayoutGuide
+        
+        NSLayoutConstraint.activate([
+            contentView.heightAnchor.constraint(equalToConstant: 90)
+        ])
         
         NSLayoutConstraint.activate([
             picturesImageView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
