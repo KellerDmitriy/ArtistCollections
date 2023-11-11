@@ -28,7 +28,6 @@ final class DetailViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupView()
-        setConstraints()
         
         navigationItem.largeTitleDisplayMode = .never
         title = selectedTitle
@@ -48,21 +47,21 @@ final class DetailViewController: UIViewController {
         view.backgroundColor = .white
         view.addSubview(picturesImageView)
         view.addSubview(infoLabel)
-    }
-    
-    private func setConstraints() {
+        
+        let safeArea = view.safeAreaLayoutGuide
+        
         NSLayoutConstraint.activate([
             
-            picturesImageView.topAnchor.constraint(equalTo: view.topAnchor,constant: 20),
-            picturesImageView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            picturesImageView.topAnchor.constraint(equalTo: safeArea.topAnchor,constant: 30),
+            picturesImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
             
-            picturesImageView.widthAnchor.constraint(equalToConstant: 300),
-            picturesImageView.heightAnchor.constraint(equalToConstant: 300),
+            picturesImageView.widthAnchor.constraint(equalToConstant: 340),
+            picturesImageView.heightAnchor.constraint(equalToConstant: 340),
             
-            infoLabel.topAnchor.constraint(equalTo: picturesImageView.bottomAnchor, constant: 4),
-            infoLabel.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 8),
-            infoLabel.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -8),
-            infoLabel.centerXAnchor.constraint(equalTo: view.centerXAnchor)
+            infoLabel.topAnchor.constraint(equalTo: picturesImageView.bottomAnchor, constant: 8),
+            infoLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
+            infoLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            infoLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
         ])
         
     }
