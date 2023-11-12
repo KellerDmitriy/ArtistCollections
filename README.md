@@ -1,8 +1,17 @@
 # ArtistCollections
-Индивидуальный челлендж №2 от SfifTMarathon (https://t.me/swiftmarathon).
+Individual Challenge #2 from SfifTMarathon (https://t.me/swiftmarathon).
 
-- На главной странице показываем авторов с краткой биографией, при нажатии на автора переходим на детальный экран, в котором будут все картины автора.
-- При нажатии на картину она увеличивается во всю ширину экрана. Над картиной отображаем название, под - описание.
-- Реализован поиск по автору.
+- On the main page, the authors are presented with a brief biography, and the author transitions to a detailed screen where all the artist's paintings are displayed.
+- When you paint a picture, it expands to the full visibility of the screen.
+- The search function is implemented.
 
-![122](https://github.com/KellerDmitriy/ArtistCollections/assets/117233833/70c35738-c71d-408a-9b70-a105668c5588)
+The stack of technologies:
+- UIKit
+- MVC
+- Programming Layout
+- SearchController
+- URLSession
+- Protocols: Codable, Comparable
+
+
+![1111](https://github.com/KellerDmitriy/ArtistCollections/assets/117233833/6e537bb2-fc7a-4bce-87f5-31327d6759a6)
