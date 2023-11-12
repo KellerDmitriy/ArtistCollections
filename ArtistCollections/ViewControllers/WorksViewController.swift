@@ -9,19 +9,20 @@ import UIKit
 
 final class WorksViewController: UITableViewController {
     var selectedImage: [Work]?
-    var selectedArtist: String = ""
+    var selectedArtist = ""
     
     private let cellID = "cell"
     
     override func viewDidLoad() {
         super.viewDidLoad()
         registeredCell()
-      
+        
         
         title = "by \(selectedArtist)"
     }
     
     private func registeredCell() {
+        tableView.separatorStyle = .none
         tableView.rowHeight = 150
         tableView.register(WorkTableViewCell.self, forCellReuseIdentifier: cellID)
     }
@@ -46,10 +47,14 @@ extension WorksViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let detailViewController = DetailViewController()
-        let works = selectedImage?[indexPath.row]
-        detailViewController.selectedTitle = works?.title
-        detailViewController.infoLabel.text = works?.info
-        detailViewController.picturesImageView.image = UIImage(named: works?.image ?? "")
-        navigationController?.pushViewController(detailViewController, animated: true)
+        guard let works = selectedImage?[indexPath.row] else { return }
+        detailViewController.selectedArtist = selectedArtist
+        detailViewController.titleLabel.text = "\"\(works.title)\""
+        detailViewController.infoLabel.text = works.info
+        detailViewController.picturesImageView.image = UIImage(named: works.image ?? "")
+        let navigationController = UINavigationController(rootViewController: detailViewController)
+        navigationController.modalPresentationStyle = .automatic
+        
+        present(navigationController, animated: true, completion: nil)
     }
 }

@@ -9,9 +9,26 @@ import UIKit
 
 final class DetailViewController: UIViewController {
     
-    var selectedTitle: String?
+    var selectedArtist = ""
+    private var isImageZoomed = false
+    private var isTextHidden = false
     
-    var isTextHidden = false
+    private let detailStackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.alignment = .center
+        stackView.spacing = 8
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    lazy var titleLabel: UILabel = {
+        let label = UILabel()
+        label.textColor = .darkGray
+        label.font = UIFont.boldSystemFont(ofSize: 24)
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
     
     lazy var infoLabel: UILabel = {
         let label = UILabel()
@@ -40,40 +57,29 @@ final class DetailViewController: UIViewController {
         setupGestureRecognizers()
         
         navigationItem.largeTitleDisplayMode = .never
-        title = selectedTitle
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        navigationController?.hidesBarsOnTap = true
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        super.viewWillDisappear(animated)
-        navigationController?.hidesBarsOnTap = false
+        title = "by \(selectedArtist)"
     }
     
     private func setupView() {
         view.backgroundColor = .white
-        view.addSubview(picturesImageView)
-        view.addSubview(infoLabel)
         
-        let safeArea = view.safeAreaLayoutGuide
+        view.addSubview(detailStackView)
+        detailStackView.addArrangedSubview(titleLabel)
+        detailStackView.addArrangedSubview(picturesImageView)
+        detailStackView.addArrangedSubview(infoLabel)
         
         NSLayoutConstraint.activate([
             
-            picturesImageView.topAnchor.constraint(equalTo: safeArea.topAnchor,constant: 50),
-            picturesImageView.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor),
+            detailStackView.centerXAnchor.constraint(equalTo: view.centerXAnchor),
+            detailStackView.centerYAnchor.constraint(equalTo: view.centerYAnchor),
+            detailStackView.leadingAnchor.constraint(greaterThanOrEqualTo: view.leadingAnchor, constant: 20),
+            detailStackView.trailingAnchor.constraint(lessThanOrEqualTo: view.trailingAnchor, constant: -20),
             
-            picturesImageView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            picturesImageView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
+            picturesImageView.widthAnchor.constraint(equalToConstant: 340),
+            picturesImageView.heightAnchor.constraint(equalToConstant: 340),
             
-            infoLabel.topAnchor.constraint(equalTo: picturesImageView.bottomAnchor, constant: 8),
-            infoLabel.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor, constant: 8),
-            infoLabel.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor, constant: -8),
-            infoLabel.centerXAnchor.constraint(equalTo: safeArea.centerXAnchor)
+            infoLabel.widthAnchor.constraint(equalTo: view.widthAnchor, multiplier: 0.8),
         ])
-        
     }
     
     private func setupGestureRecognizers() {
@@ -82,25 +88,37 @@ final class DetailViewController: UIViewController {
     }
     
     @objc private func imageTapped() {
-        isTextHidden.toggle()
+        isImageZoomed.toggle()
         UIView.transition(with: infoLabel, duration: 0.3, options: .transitionCrossDissolve, animations: {
-            self.infoLabel.isHidden = self.isTextHidden
+            self.infoLabel.isHidden = self.isImageZoomed
         }, completion: nil)
         
-        if isTextHidden {
+        UIView.transition(with: titleLabel, duration: 0.3, options: .transitionCrossDissolve, animations: {
+            self.titleLabel.isHidden = self.isImageZoomed
+        }, completion: nil)
+        
+        if isImageZoomed {
             navigationController?.setNavigationBarHidden(true, animated: true)
             UIView.animate(withDuration: 0.3) {
-                let scale = max(self.view.bounds.width / self.picturesImageView.bounds.width, self.view.bounds.height / self.picturesImageView.bounds.height) + 1.3
-                self.picturesImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
-                let yOffset: CGFloat = 400
-                self.picturesImageView.center = CGPoint(x: self.view.center.x, y: self.view.center.y + yOffset )
+                self.zoomInImage()
             }
         } else {
             navigationController?.setNavigationBarHidden(false, animated: true)
             UIView.animate(withDuration: 0.3) {
-                self.picturesImageView.transform = .identity
+                self.zoomOutImage()
             }
         }
+    }
+
+    private func zoomInImage() {
+        let yOffset: CGFloat = 200
+        let scale = max(self.view.bounds.width / self.picturesImageView.bounds.width, self.view.bounds.height / self.picturesImageView.bounds.height)
+        self.picturesImageView.transform = CGAffineTransform(scaleX: scale, y: scale)
+        self.picturesImageView.center = CGPoint(x: self.view.center.x, y: self.view.center.y - yOffset)
+    }
+
+    private func zoomOutImage() {
+        self.picturesImageView.transform = .identity
     }
 }
 

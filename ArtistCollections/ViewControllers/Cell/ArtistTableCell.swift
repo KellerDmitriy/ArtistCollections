@@ -9,6 +9,18 @@ import UIKit
 
 final class ArtistTableCell: UITableViewCell {
     
+    lazy var shadowView: UIView = {
+        let view = UIView()
+        view.backgroundColor = .white
+        view.layer.cornerRadius = 20
+        view.translatesAutoresizingMaskIntoConstraints = false
+        view.layer.shadowColor = UIColor.black.cgColor
+        view.layer.shadowOpacity = 0.5
+        view.layer.shadowOffset = CGSize(width: 0, height: 4)
+        view.layer.shadowRadius = 8
+        return view
+    }()
+    
     lazy var artistLabel: UILabel = {
         let label = UILabel()
         label.textColor = .darkGray
@@ -48,6 +60,8 @@ final class ArtistTableCell: UITableViewCell {
     
     private func setupCell() {
         selectionStyle = .none
+        contentView.addSubview(shadowView)
+        
         contentView.addSubview(artistLabel)
         contentView.addSubview(picturesImageView)
         contentView.addSubview(bioLabel)
@@ -55,6 +69,11 @@ final class ArtistTableCell: UITableViewCell {
         let spacing: CGFloat = 4.0
         
         NSLayoutConstraint.activate([
+            shadowView.topAnchor.constraint(equalTo: contentView.topAnchor, constant: 4),
+            shadowView.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 4),
+            shadowView.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -4),
+            shadowView.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -16),
+            
             artistLabel.topAnchor.constraint(equalTo: contentView.topAnchor),
             artistLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor),
             
@@ -65,10 +84,10 @@ final class ArtistTableCell: UITableViewCell {
             picturesImageView.heightAnchor.constraint(equalToConstant: 150),
             
             bioLabel.topAnchor.constraint(equalTo: picturesImageView.bottomAnchor, constant: spacing),
-            bioLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 8),
-            bioLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -8),
-            bioLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -8),
-            bioLabel.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            bioLabel.leadingAnchor.constraint(equalTo: shadowView.leadingAnchor, constant: 10),
+            bioLabel.bottomAnchor.constraint(equalTo: shadowView.bottomAnchor, constant: -12),
+            bioLabel.trailingAnchor.constraint(equalTo: shadowView.trailingAnchor, constant: -10),
+            bioLabel.centerXAnchor.constraint(equalTo: shadowView.centerXAnchor)
             
         ])
     }
