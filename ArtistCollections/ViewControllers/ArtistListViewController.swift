@@ -46,11 +46,21 @@ class ArtistListViewController: UITableViewController {
         if let textField = searchController.searchBar.value(forKey: "searchField") as? UITextField {
             textField.font = UIFont.boldSystemFont(ofSize: 17)
             textField.textColor = .gray
+            
+            textField.backgroundColor = .white
+            
+            textField.layer.borderColor = UIColor.gray.cgColor
+            textField.layer.borderWidth = 1.0
+            textField.layer.cornerRadius = 10.0
+            textField.layer.shadowColor = UIColor.black.cgColor
+            textField.layer.shadowOpacity = 0.5
+            textField.layer.shadowOffset = CGSize(width: 0, height: 4)
         }
     }
+    
     private func registeredCell() {
- 
-        tableView.rowHeight = 320
+        tableView.separatorStyle = .none
+        tableView.rowHeight = 330
         tableView.register(ArtistTableCell.self, forCellReuseIdentifier: cellID)
     }
     
@@ -76,7 +86,11 @@ class ArtistListViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let worksViewController = WorksViewController()
-        let artist = artistsResult?.artists[indexPath.row]
+        
+        let artist = isFiltering
+        ? filteredArtist[indexPath.row]
+        : artistsResult?.artists[indexPath.row]
+        
         let works = artist?.works
         worksViewController.selectedArtist = artist?.name ?? ""
         worksViewController.selectedImage = works
@@ -118,7 +132,7 @@ extension ArtistListViewController: UISearchResultsUpdating {
         filteredArtist = artistsResult?.artists.filter { artist in
             artist.name.lowercased().contains(searchText.lowercased())
         } ?? []
-           
-           tableView.reloadData()
+        
+        tableView.reloadData()
     }
 }
